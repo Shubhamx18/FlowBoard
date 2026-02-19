@@ -1,8 +1,8 @@
 def call(String imageName, String imageTag, String dockerHubUser) {
     sh """
-        sudo usermod -aG docker jenkins
+        sudo usermod -aG docker && newgrp docker
         sudo reboot
-        sudo su - jenkins
+        sudo su - ubuntu
         docker ps
         docker build -t ${dockerHubUser}/${imageName}:${imageTag} .
     """

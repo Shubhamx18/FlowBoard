@@ -10,6 +10,7 @@ The Vite dev server is running at **http://localhost:5173**
 
 ## What You Should See:
 
+
 ✅ A modern glassmorphic login card with cyan/teal gradient  
 ✅ FlowBoard logo at the top  
 ✅ Sign In / Sign Up buttons  

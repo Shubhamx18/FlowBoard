@@ -1,9 +1,5 @@
-def call(String imageName, String imageTag, String dockerHubUser) {
+def call(imageName, tag, dockerHubUser) {
     sh """
-        sudo usermod -aG docker && newgrp docker
-        sudo reboot
-        sudo su - ubuntu
-        docker ps
-        docker build -t ${dockerHubUser}/${imageName}:${imageTag} .
+        docker build -t ${dockerHubUser}/${imageName}:${tag} .
     """
 }

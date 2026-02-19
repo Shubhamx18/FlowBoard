@@ -1,6 +1,6 @@
 def call() {
     sh """
-        dependency-check.sh \
+        /opt/dependency-check-tool/bin/dependency-check.sh \
         --project Luminary \
         --scan . \
         --format XML \

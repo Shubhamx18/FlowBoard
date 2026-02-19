@@ -4,6 +4,7 @@ def call() {
         --project Luminary \
         --scan . \
         --format XML \
-        --out dependency-check-report
+        --out dependency-check-report \
+        --data /opt/dependency-check-data
     """
 }

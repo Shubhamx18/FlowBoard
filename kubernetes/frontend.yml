@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: luminary
+  labels:
+    app: luminary
+    component: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: luminary
+      component: frontend
+  template:
+    metadata:
+      labels:
+        app: luminary
+        component: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: shubhamm18/luminary-frontend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+  namespace: luminary
+spec:
+  type: NodePort
+  selector:
+    app: luminary
+    component: frontend
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30080
+      protocol: TCP

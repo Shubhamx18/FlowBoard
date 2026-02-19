@@ -74,4 +74,4 @@ The Vite dev server is running at **http://localhost:5173**
 
 ---
 
-**The server IS running now!** Just open http://localhost:5173 in your browser! 🚀
+**The server IS running now!** Just open http://localhost:5173 in your browser 🚀

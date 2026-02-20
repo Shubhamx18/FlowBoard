@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: shubhamm18/luminary-frontend:1
+          image: shubhamm18/luminary-frontend:v1
           imagePullPolicy: Always
           ports:
             - containerPort: 80

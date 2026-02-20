@@ -1,20 +1,21 @@
 <div align="center">
 
-# 🌟 Luminary
-
-### Next-Gen Project Management — Deployed with DevSecOps + GitOps
-
-[![GitHub repo](https://img.shields.io/badge/GitHub-Shubhamx18%2FLuminary-181717?logo=github&logoColor=white)](https://github.com/Shubhamx18/Luminary)
-[![DockerHub](https://img.shields.io/badge/DockerHub-shubhamm18-2496ED?logo=docker&logoColor=white)](https://hub.docker.com/u/shubhamm18)
-[![Jenkins](https://img.shields.io/badge/CI%2FCD-Jenkins-D24939?logo=jenkins&logoColor=white)](#)
-[![ArgoCD](https://img.shields.io/badge/GitOps-ArgoCD-EF7B4D?logo=argo&logoColor=white)](#)
-[![Kubernetes](https://img.shields.io/badge/Orchestration-Kubernetes-326CE5?logo=kubernetes&logoColor=white)](#)
+![Luminary Banner](./assets/luminary-banner.svg)
 
 <br/>
 
-> **Security is baked in — not bolted on.**
-> Every code push triggers automated security scans, quality gates, Docker image builds,
-> and GitOps-based deployment to Kubernetes — fully hands-free.
+[![GitHub](https://img.shields.io/badge/GitHub-Shubhamx18%2FLuminary-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/Shubhamx18/Luminary)
+[![DockerHub](https://img.shields.io/badge/DockerHub-shubhamm18-2496ED?style=flat-square&logo=docker&logoColor=white)](https://hub.docker.com/u/shubhamm18)
+[![Jenkins](https://img.shields.io/badge/CI%2FCD-Jenkins-D24939?style=flat-square&logo=jenkins&logoColor=white)](#)
+[![ArgoCD](https://img.shields.io/badge/GitOps-ArgoCD-EF7B4D?style=flat-square&logo=argo&logoColor=white)](#)
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-EKS-326CE5?style=flat-square&logo=kubernetes&logoColor=white)](#)
+[![SonarQube](https://img.shields.io/badge/Quality-SonarQube-4E9BCD?style=flat-square&logo=sonarqube&logoColor=white)](#)
+[![Trivy](https://img.shields.io/badge/Security-Trivy-1904DA?style=flat-square&logo=aquasecurity&logoColor=white)](#)
+[![OWASP](https://img.shields.io/badge/Dependency-OWASP-000000?style=flat-square&logo=owasp&logoColor=white)](#)
+[![AWS](https://img.shields.io/badge/Cloud-AWS-FF9900?style=flat-square&logo=amazonaws&logoColor=white)](#)
+[![Grafana](https://img.shields.io/badge/Monitoring-Grafana-F46800?style=flat-square&logo=grafana&logoColor=white)](#)
+
+<br/>
 
 </div>
 

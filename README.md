@@ -1,261 +1,325 @@
-# FlowBoard - Modern Project Management System
+<div align="center">
 
-![Version](https://img.shields.io/badge/version-2.0.0-cyan) ![License](https://img.shields.io/badge/license-MIT-orange)
+# 🌟 Luminary
 
-A modern, beautiful project management system built with React, Node.js, and MySQL. Features real-time collaboration, task tracking, team chat, and video calling.
+### Next-Gen Project Management — Deployed with DevSecOps + GitOps
 
-## 🎨 New Design
+![DevSecOps GitOps Flow](./assets/DevSecOps+GitOps.gif)
 
-Completely rebuilt UI with:
-- **Cyan/Teal + Coral/Orange** color scheme
-- **Glassmorphism** effects
-- **Smooth animations** and transitions
-- **Fully responsive** design
+> **Security is baked in — not bolted on.**
+> Every code push triggers automated security scans, quality gates, Docker image builds,
+> and GitOps-based deployment to Kubernetes — fully hands-free.
 
-## ✨ Features
+[![GitHub repo](https://img.shields.io/badge/GitHub-Shubhamx18%2FLuminary-181717?logo=github)](https://github.com/Shubhamx18/Luminary)
+[![DockerHub](https://img.shields.io/badge/DockerHub-shubhamm18-2496ED?logo=docker)](https://hub.docker.com/u/shubhamm18)
 
-- 📊 **Project Management** - Create and manage multiple projects
-- ✅ **Task Tracking** - Kanban board with drag-and-drop
-- 💬 **Real-time Chat** - Project-based team communication
-- 📹 **Video Calls** - Built-in video calling with Agora
-- 👥 **Team Collaboration** - Invite members and assign tasks
-- 🔔 **Notifications** - Stay updated on project activity
-- 📱 **Responsive Design** - Works on all devices
-
-## 🚀 Quick Start
-
-### Local Development
-
-```bash
-# 1. Clone repository
-git clone <your-repo-url>
-cd FlowBoard-main
-
-# 2. Install dependencies
-cd backend && npm install
-cd ../frontend && npm install
-
-# 3. Configure environment
-cp .env.example .env
-# Edit .env with your settings
-
-# 4. Start backend
-cd backend && npm run dev
-
-# 5. Start frontend (new terminal)
-cd frontend && npm run dev
-```
-
-Visit `http://localhost:5173`
-
-### Docker Deployment
-
-```bash
-# 1. Configure environment
-cp .env.example .env
-# Edit .env with production settings
-
-# 2. Build and start
-docker compose build
-docker compose up -d
-
-# 3. Visit your application
-# Frontend: http://localhost
-# Backend: http://localhost:5000
-```
-
-## 🐳 Docker Setup (EC2)
-
-### Prerequisites
-
-- EC2 instance (Ubuntu 22.04+)
-- Docker and Docker Compose installed
-- Security group configured (ports 80, 5000, 22)
-
-### Deployment Steps
-
-1. **Update `.env` file**:
-```env
-SERVER_IP=YOUR_EC2_PUBLIC_IP
-BACKEND_PORT=5000
-FRONTEND_PORT=80
-NODE_ENV=production
-
-DB_HOST=mysql
-DB_USER=root
-DB_PASSWORD=YOUR_SECURE_PASSWORD
-DB_NAME=project_management_db
-
-JWT_SECRET=YOUR_SECRET_KEY
-
-CORS_ORIGIN=http://YOUR_EC2_PUBLIC_IP
-
-VITE_API_URL=http://YOUR_EC2_PUBLIC_IP:5000/api
-VITE_BACKEND_URL=http://YOUR_EC2_PUBLIC_IP:5000
-VITE_AGORA_APP_ID=YOUR_AGORA_APP_ID
-```
-
-2. **Build and deploy**:
-```bash
-docker compose build --no-cache
-docker compose up -d
-```
-
-3. **Verify deployment**:
-```bash
-docker ps  # All containers should be "healthy"
-curl http://YOUR_EC2_PUBLIC_IP:5000/api/health  # Should return {"status":"ok"}
-```
-
-## 📦 Tech Stack
-
-**Frontend:**
-- React 18
-- Vite
-- React Router
-- Socket.IO Client
-- Agora RTC SDK
-- Lucide Icons
-
-**Backend:**
-- Node.js
-- Express
-- Socket.IO
-- MySQL
-- JWT Authentication
-
-**DevOps:**
-- Docker
-- Docker Compose
-- Vite Preview Server (no nginx)
-
-## 🗂️ Project Structure
-
-```
-FlowBoard-main/
-├── backend/
-│   ├── server.js           # Main server file
-│   ├── routes/             # API routes
-│   ├── controllers/        # Business logic
-│   ├── middleware/         # Authentication
-│   └── config/             # Database config
-├── frontend/
-│   ├── src/
-│   │   ├── components/     # Reusable components
-│   │   ├── pages/          # Page components
-│   │   ├── services/       # API services
-│   │   ├── context/        # React context
-│   │   └── index.css       # Design system
-│   └── Dockerfile          # Frontend Docker config
-├── database/
-│   └── schema.sql          # Database schema
-├── docker-compose.yml      # Docker orchestration
-└── .env                    # Environment config
-```
-
-## 🔧 Configuration
-
-### Environment Variables
-
-See `.env.example` for all available options.
-
-**Required:**
-- `DB_PASSWORD` - MySQL root password
-- `JWT_SECRET` - Secret key for JWT tokens
-- `SERVER_IP` - Your server's public IP
-- `VITE_API_URL` - Backend API URL
-- `VITE_BACKEND_URL` - Backend WebSocket URL
-
-**Optional:**
-- `AGORA_APP_ID` - For video calling
-- `AGORA_APP_CERTIFICATE` - For Agora token generation
-
-## 📝 API Documentation
-
-### Authentication
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - Login user
-
-### Projects
-- `GET /api/projects` - List all projects
-- `POST /api/projects` - Create project
-- `GET /api/projects/:id` - Get project details
-- `POST /api/projects/:id/members` - Add member
-
-### Tasks
-- `GET /api/tasks/project/:id` - List project tasks
-- `POST /api/tasks/project/:id` - Create task
-- `PUT /api/tasks/:id` - Update task
-- `DELETE /api/tasks/:id` - Delete task
-
-### Messages
-- `GET /api/messages/:projectId` - Get messages
-- `POST /api/messages` - Send message
-
-## 🎨 Design System
-
-### Colors
-
-```css
---color-primary-500: #06b6d4;     /* Cyan */
---color-secondary-500: #f97316;   /* Orange */
---color-accent-500: #10b981;      /* Green */
---color-background-primary: #0f172a;  /* Dark */
-```
-
-### Components
-
-- Buttons: `.btn-primary`, `.btn-secondary`, `.btn-ghost`
-- Cards: `.card`, `.card-glass`
-- Inputs: `.input`, `.select`
-- Badges: `.badge-primary`, `.badge-success`
-- Modals: `.modal-overlay`, `.modal`
-
-## 🧪 Testing
-
-```bash
-# Backend
-cd backend
-npm test
-
-# Frontend
-cd frontend
-npm test
-
-# Build test
-docker compose build
-```
-
-## 📱 Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License.
-
-## 🙏 Acknowledgments
-
-- React team for the amazing framework
-- Vite for blazing fast builds
-- Agora for video calling SDK
-- Lucide for beautiful icons
-
-## 📞 Support
-
-For support, email support@flowboard.com or open an issue.
+</div>
 
 ---
 
-Built with ❤️ using React, Node.js, and MySQL
+## 🖥️ Application Preview
+
+| 🔐 Login Page | 📊 Dashboard |
+|:---:|:---:|
+| ![Login](./assets/luminary-login.png.png) | ![Dashboard](./assets/luminary-dashboard.png.png) |
+
+> Luminary is a **next-gen project management platform** built for teams who ship fast.
+> Track projects, manage tasks, monitor completion rates, and catch overdue items — all in a sleek dark UI.
+
+---
+
+## 📌 Project Architecture & Flow
+
+The project follows a **two-pipeline GitOps architecture** with security integrated at every stage:
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                       JENKINS CI JOB                             │
+│                                                                  │
+│  Developer ──► GitHub ──► Jenkins ──► OWASP ──► SonarQube       │
+│                                  └──► Trivy ──► Docker Build+Push│
+│                                                        │         │
+│                             Trigger Jenkins CD Job ◄───┘         │
+└──────────────────────────────────────────────────────────────────┘
+                                   │
+                                   ▼
+┌──────────────────────────────────────────────────────────────────┐
+│                       JENKINS CD JOB                             │
+│                                                                  │
+│  Jenkins CD ──► Update K8s Manifests ──► Push to GitHub         │
+│                                                  │               │
+│                   ArgoCD auto-detects & deploys ◄┘               │
+│                          │                                       │
+│             Kubernetes ◄─┘                                       │
+│                 │                                                │
+│      Prometheus + Grafana (Monitoring)                           │
+│                 │                                                │
+│           Gmail Notification ◄───────────────────────           │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+- **Luminary-CI** — Handles security scanning, code quality checks, Docker builds, and image pushes to DockerHub.
+- **Luminary-CD** — Updates Kubernetes manifests with new image tags, pushes to GitHub. ArgoCD detects the change and deploys to the cluster automatically.
+
+---
+
+## 🛠️ Tech Stack
+
+| Category | Tool |
+|:---|:---|
+| 📁 Source Control | GitHub |
+| ⚙️ CI/CD Orchestration | Jenkins (Master + Worker Node) |
+| 🔍 Dependency Scanning | OWASP Dependency-Check |
+| 📊 Code Quality | SonarQube |
+| 🛡️ Filesystem Security | Trivy |
+| 🐳 Containerization | Docker |
+| 📦 Container Registry | DockerHub |
+| 🚀 GitOps Deployment | ArgoCD |
+| ☸️ Container Orchestration | Kubernetes |
+| 📈 Monitoring | Prometheus + Grafana (via Helm) |
+| 📧 Notification | Gmail SMTP — Jenkins Email Extension |
+| 🔧 Shared Pipeline Logic | Jenkins Shared Library |
+
+---
+
+## 🔄 Pipeline Flow — Step by Step
+
+### 🔵 CI Pipeline (Luminary-CI)
+
+```
+Developer pushes code to GitHub
+         │
+         ▼
+1.  Validate Parameters      →  Ensures FRONTEND_DOCKER_TAG & BACKEND_DOCKER_TAG are set
+2.  Workspace Cleanup        →  Cleans Jenkins workspace before build
+3.  Git: Code Checkout       →  Clones Luminary repo (main branch)
+4.  Trivy: Filesystem Scan   →  Scans source code for vulnerabilities
+5.  OWASP: Dependency Check  →  Audits dependencies against NVD for known CVEs
+6.  SonarQube: Code Analysis →  Runs static analysis on the codebase
+7.  SonarQube: Quality Gate  →  ❌ Pipeline fails if quality thresholds not met
+8.  Update Env (Optional)    →  Runs automate_update_env_ip.sh if present
+9.  Docker: Login            →  Authenticates to DockerHub
+10. Docker: Build Images     →  Builds luminary-backend & luminary-frontend images
+11. Docker: Push Images      →  Pushes versioned images to DockerHub
+         │
+         ▼
+POST SUCCESS → Automatically triggers Luminary-CD pipeline
+```
+
+### 🟢 CD Pipeline (Luminary-CD)
+
+```
+Triggered by CI (receives FRONTEND_DOCKER_TAG & BACKEND_DOCKER_TAG)
+         │
+         ▼
+1.  Workspace Cleanup             →  Fresh workspace
+2.  Git: Code Checkout            →  Clones repo to access Kubernetes manifests
+3.  Verify: Docker Image Tags     →  Validates that tags are not empty
+4.  Update: Kubernetes Manifests  →  sed replaces image tags in backend.yml & frontend.yml
+5.  Git: Commit & Push            →  Pushes updated manifests to GitHub (main)
+         │
+         ▼
+POST SUCCESS → HTML email notification sent via Gmail
+         │
+         ▼
+ArgoCD detects manifest change → Auto-Syncs → Deploys to Kubernetes ✅
+```
+
+---
+
+## 🖼️ Pipeline Screenshots
+
+### ⚙️ CI Pipeline — Luminary-CI (Stage View)
+
+> All stages passing: Validate → Workspace Cleanup → Git Checkout → Trivy → OWASP → SonarQube Analysis → Quality Gate → Update Env → Docker Login → Build Images → Push Images
+
+![Luminary-CI Stage View](./assets/luminary-ci.png.png)
+
+---
+
+### 🚢 CD Pipeline — Luminary-CD (Stage View)
+
+> Workspace Cleanup → Git Checkout → Verify Docker Tags → Update K8s Manifests → Git Commit & Push to GitHub
+
+![Luminary-CD Stage View](./assets/luminary-cd.png.png)
+
+---
+
+### 🐙 ArgoCD — Application Deployment on Kubernetes
+
+> Luminary app **Synced** and **Healthy** — ConfigMap, Secrets, PVC, Deployments, Services, and Pods all green ✅
+
+![ArgoCD Deployment](./assets/argocd.png.png)
+
+---
+
+### 📊 Grafana — Kubernetes Workload Monitoring
+
+> Real-time CPU usage, CPU quota, and Memory usage per pod — full workload visibility across all namespaces
+
+![Grafana Dashboard](./assets/grafana.png.png)
+
+---
+
+### 🔍 SonarQube — Jenkins Webhook Integration
+
+> SonarQube notifies Jenkins via webhook after every analysis — enabling the Quality Gate stage to pass or fail the pipeline in real-time
+
+![SonarQube Webhook](./assets/sonarqube-webhook.png.png)
+
+---
+
+### 📦 OWASP — Dependency-Check Trend
+
+> Tracks vulnerability trends across builds. The graph shows **Medium** severity dependency findings detected from build #15 onwards — with zero Critical vulnerabilities across all runs ✅
+
+![OWASP Dependency-Check Trend](./assets/dependency-check.png.png)
+
+---
+
+## 🔐 Security Integrations
+
+### 🛡️ Trivy — Filesystem Scan
+Trivy scans the entire source code filesystem **before** any Docker build happens. Critical vulnerabilities surface in pipeline logs, stopping insecure images from being built or pushed.
+
+### 🔎 OWASP Dependency-Check
+Audits all project dependencies against the National Vulnerability Database (NVD). The full report is published as a Jenkins artifact (`dependency-check-report.xml`) with a trend chart visible directly on the pipeline dashboard.
+
+### ✅ SonarQube Quality Gate
+Static code analysis with enforced quality gates. The pipeline **will not proceed** to Docker builds if the gate fails. A SonarQube webhook notifies Jenkins in real-time to trigger the gate evaluation — no polling, instant feedback.
+
+---
+
+## ⚙️ Jenkins Shared Library
+
+All reusable pipeline logic is abstracted into a **Jenkins Shared Library** (`@Library('shared') _`), keeping both Jenkinsfiles clean, readable, and DRY.
+
+| Function | Purpose |
+|:---|:---|
+| `code_checkout(url, branch)` | Clones a GitHub repository |
+| `trivy_scan()` | Runs Trivy filesystem vulnerability scan |
+| `sonarqube_analysis(tool, project, key)` | Executes SonarQube static analysis |
+| `sonarqube_code_quality()` | Waits for and evaluates the Quality Gate result |
+| `docker_login(credId)` | Authenticates to DockerHub |
+| `docker_build(name, tag, registry)` | Builds a Docker image |
+| `docker_push(name, tag, registry)` | Pushes image to DockerHub |
+
+---
+
+## 🚀 ArgoCD — GitOps Deployment
+
+ArgoCD watches the `kubernetes/` directory in GitHub. When the CD pipeline commits updated image tags, ArgoCD takes over completely:
+
+1. Detects the manifest change automatically (Auto-Sync enabled)
+2. Applies the updated `backend.yml` and `frontend.yml` to the Kubernetes cluster
+3. Rolls out new pods with zero-downtime deployment
+4. All resources show **Healthy** ✅ on the ArgoCD dashboard
+
+**Kubernetes Resources managed by ArgoCD:**
+
+| Resource | Kind |
+|:---|:---|
+| `luminary-config` | ConfigMap |
+| `luminary-secrets` | Secret |
+| `mysql-pvc` | PersistentVolumeClaim |
+| `backend` | Deployment + Service |
+| `frontend` | Deployment + Service |
+| `mysql` | Deployment + Service |
+
+---
+
+## 📊 Monitoring — Prometheus & Grafana
+
+Deployed via **Helm** (`kube-prometheus-stack`) in a dedicated `prometheus` namespace.
+
+```bash
+# Add Helm repo and install
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+kubectl create namespace prometheus
+helm install stable prometheus-community/kube-prometheus-stack -n prometheus
+
+# Expose Prometheus (ClusterIP → NodePort)
+kubectl edit svc stable-kube-prometheus-sta-prometheus -n prometheus
+
+# Expose Grafana (ClusterIP → NodePort)
+kubectl edit svc stable-grafana -n prometheus
+
+# Get Grafana admin password
+kubectl get secret --namespace prometheus stable-grafana \
+  -o jsonpath="{.data.admin-password}" | base64 --decode; echo
+```
+
+Grafana dashboards provide real-time visibility into CPU Usage, CPU Quota, Memory Usage, and workload-level drill-down across all namespaces.
+
+---
+
+## 📧 Email Notification
+
+On every successful CI/CD run, Jenkins sends an **HTML email** containing the job name, build number, and a direct build URL — with the full build log attached. Configured via the Jenkins Extended Email Notification plugin using Gmail App Password SMTP authentication on port 465.
+
+---
+
+## 📁 Repository Structure
+
+```
+Luminary/
+├── assets/                        # All screenshots & GIF for README
+│   ├── DevSecOps+GitOps.gif
+│   ├── luminary-login.png.png
+│   ├── luminary-dashboard.png.png
+│   ├── luminary-ci.png.png
+│   ├── luminary-cd.png.png
+│   ├── argocd.png.png
+│   ├── grafana.png.png
+│   └── sonarqube-webhook.png.png
+├── backend/                       # Node.js/Express backend
+│   └── Dockerfile
+├── frontend/                      # React frontend
+│   └── Dockerfile
+├── kubernetes/                    # K8s manifests (auto-updated by CD pipeline)
+│   ├── backend.yml
+│   └── frontend.yml
+├── Jenkinsfile-CI                 # CI pipeline definition
+├── Jenkinsfile-CD                 # CD pipeline definition
+└── automate_update_env_ip.sh      # Optional: env IP updater script
+```
+
+---
+
+## 🔑 Jenkins Credentials Required
+
+| Credential ID | Type | Purpose |
+|:---|:---|:---|
+| `docker` | Username/Password | DockerHub authentication |
+| `github-token` | Git Username/Password (PAT) | Push manifest updates to GitHub |
+| `sonar` | Secret Text | SonarQube token for analysis |
+| Gmail App Password | Username/Password | Email notification via SMTP port 465 |
+
+---
+
+## 💡 Key Design Decisions
+
+**GitOps over direct kubectl** — The CD pipeline never runs `kubectl apply`. It commits to Git, and ArgoCD syncs the cluster. Git is always the single source of truth for cluster state.
+
+**`propagate: false` in CI trigger** — CI triggers CD with `propagate: false`, meaning a CD failure won't retroactively mark the CI build as failed. Both pipelines are tracked independently.
+
+**Idempotent Git commits** — The CD pipeline checks `git diff --cached --quiet` before committing. If the image tag is unchanged between runs, no empty commit is created.
+
+**Shared Library abstraction** — All tool-specific logic lives in the shared library. Jenkinsfiles stay clean, readable, and require zero duplication across pipelines.
+
+---
+
+<div align="center">
+
+## 📬 Contact
+
+**Author:** Shubham Mali
+
+[![GitHub](https://img.shields.io/badge/GitHub-Shubhamx18-181717?logo=github)](https://github.com/Shubhamx18)
+[![DockerHub](https://img.shields.io/badge/DockerHub-shubhamm18-2496ED?logo=docker)](https://hub.docker.com/u/shubhamm18)
+
+---
+
+⭐ **If this project helped you, consider giving it a star on GitHub!** ⭐
+
+</div>

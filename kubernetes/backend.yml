@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: shubhamm18/luminary-backend:latest
+          image: shubhamm18/luminary-backend:1
           imagePullPolicy: Always
           ports:
             - containerPort: 5000

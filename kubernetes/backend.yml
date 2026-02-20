@@ -3,9 +3,6 @@ kind: Deployment
 metadata:
   name: backend
   namespace: luminary
-  labels:
-    app: luminary
-    component: backend
 spec:
   replicas: 1
   selector:
@@ -18,41 +15,21 @@ spec:
         app: luminary
         component: backend
     spec:
+      enableServiceLinks: false   # 🔥 THIS IS THE FIX
       containers:
         - name: backend
           image: shubhamm18/luminary-backend:v2
           imagePullPolicy: Always
-
           ports:
             - containerPort: 5000
-
-          # 🔥 CRITICAL FIX
           env:
             - name: DB_HOST
               value: mysql-service
-            - name: HOST
-              value: 0.0.0.0
-            - name: PORT
-              value: "5000"
-
           envFrom:
             - configMapRef:
                 name: luminary-config
             - secretRef:
                 name: luminary-secrets
-
-          # Optional but recommended probes
-          livenessProbe:
-            tcpSocket:
-              port: 5000
-            initialDelaySeconds: 20
-            periodSeconds: 10
-
-          readinessProbe:
-            tcpSocket:
-              port: 5000
-            initialDelaySeconds: 10
-            periodSeconds: 5
 
 ---
 apiVersion: v1

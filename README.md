@@ -4,14 +4,17 @@
 
 ### Next-Gen Project Management — Deployed with DevSecOps + GitOps
 
-![DevSecOps GitOps Flow](./assets/DevSecOps+GitOps.gif)
+[![GitHub repo](https://img.shields.io/badge/GitHub-Shubhamx18%2FLuminary-181717?logo=github&logoColor=white)](https://github.com/Shubhamx18/Luminary)
+[![DockerHub](https://img.shields.io/badge/DockerHub-shubhamm18-2496ED?logo=docker&logoColor=white)](https://hub.docker.com/u/shubhamm18)
+[![Jenkins](https://img.shields.io/badge/CI%2FCD-Jenkins-D24939?logo=jenkins&logoColor=white)](#)
+[![ArgoCD](https://img.shields.io/badge/GitOps-ArgoCD-EF7B4D?logo=argo&logoColor=white)](#)
+[![Kubernetes](https://img.shields.io/badge/Orchestration-Kubernetes-326CE5?logo=kubernetes&logoColor=white)](#)
+
+<br/>
 
 > **Security is baked in — not bolted on.**
 > Every code push triggers automated security scans, quality gates, Docker image builds,
 > and GitOps-based deployment to Kubernetes — fully hands-free.
-
-[![GitHub repo](https://img.shields.io/badge/GitHub-Shubhamx18%2FLuminary-181717?logo=github)](https://github.com/Shubhamx18/Luminary)
-[![DockerHub](https://img.shields.io/badge/DockerHub-shubhamm18-2496ED?logo=docker)](https://hub.docker.com/u/shubhamm18)
 
 </div>
 
@@ -21,45 +24,25 @@
 
 | 🔐 Login Page | 📊 Dashboard |
 |:---:|:---:|
-| ![Login](./assets/luminary-login.png.png) | ![Dashboard](./assets/luminary-dashboard.png.png) |
+| ![Login](./assets/luminary-login.png.png) | ![Dashboard](./assets/luminary-dashboard.png) |
 
 > Luminary is a **next-gen project management platform** built for teams who ship fast.
 > Track projects, manage tasks, monitor completion rates, and catch overdue items — all in a sleek dark UI.
 
 ---
 
-## 📌 Project Architecture & Flow
+## 📌 Project Deployment Flow
 
-The project follows a **two-pipeline GitOps architecture** with security integrated at every stage:
+<div align="center">
 
-```
-┌──────────────────────────────────────────────────────────────────┐
-│                       JENKINS CI JOB                             │
-│                                                                  │
-│  Developer ──► GitHub ──► Jenkins ──► OWASP ──► SonarQube       │
-│                                  └──► Trivy ──► Docker Build+Push│
-│                                                        │         │
-│                             Trigger Jenkins CD Job ◄───┘         │
-└──────────────────────────────────────────────────────────────────┘
-                                   │
-                                   ▼
-┌──────────────────────────────────────────────────────────────────┐
-│                       JENKINS CD JOB                             │
-│                                                                  │
-│  Jenkins CD ──► Update K8s Manifests ──► Push to GitHub         │
-│                                                  │               │
-│                   ArgoCD auto-detects & deploys ◄┘               │
-│                          │                                       │
-│             Kubernetes ◄─┘                                       │
-│                 │                                                │
-│      Prometheus + Grafana (Monitoring)                           │
-│                 │                                                │
-│           Gmail Notification ◄───────────────────────           │
-└──────────────────────────────────────────────────────────────────┘
-```
+![DevSecOps GitOps Flow](./assets/DevSecOps+GitOps.gif)
 
-- **Luminary-CI** — Handles security scanning, code quality checks, Docker builds, and image pushes to DockerHub.
-- **Luminary-CD** — Updates Kubernetes manifests with new image tags, pushes to GitHub. ArgoCD detects the change and deploys to the cluster automatically.
+</div>
+
+The diagram above shows the complete end-to-end flow:
+
+- **Top box (CI)** — Developer pushes code → Jenkins pulls from GitHub → OWASP dependency check → SonarQube code & quality gate analysis → Trivy filesystem scan → Docker build & push → Triggers CD Job
+- **Bottom box (CD)** — Jenkins CD updates Docker image version in k8s manifests → Pushes to GitHub → ArgoCD pulls and deploys on Kubernetes → Prometheus + Grafana monitoring → Gmail notification
 
 ---
 
@@ -127,13 +110,13 @@ ArgoCD detects manifest change → Auto-Syncs → Deploys to Kubernetes ✅
 
 ---
 
-## 🖼️ Pipeline Screenshots
+## 🖼️ Project Screenshots
 
 ### ⚙️ CI Pipeline — Luminary-CI (Stage View)
 
 > All stages passing: Validate → Workspace Cleanup → Git Checkout → Trivy → OWASP → SonarQube Analysis → Quality Gate → Update Env → Docker Login → Build Images → Push Images
 
-![Luminary-CI Stage View](./assets/luminary-ci.png.png)
+![Luminary-CI Stage View](./assets/luminary-ci.png)
 
 ---
 
@@ -141,7 +124,7 @@ ArgoCD detects manifest change → Auto-Syncs → Deploys to Kubernetes ✅
 
 > Workspace Cleanup → Git Checkout → Verify Docker Tags → Update K8s Manifests → Git Commit & Push to GitHub
 
-![Luminary-CD Stage View](./assets/luminary-cd.png.png)
+![Luminary-CD Stage View](./assets/luminary-cd.png)
 
 ---
 
@@ -149,7 +132,7 @@ ArgoCD detects manifest change → Auto-Syncs → Deploys to Kubernetes ✅
 
 > Luminary app **Synced** and **Healthy** — ConfigMap, Secrets, PVC, Deployments, Services, and Pods all green ✅
 
-![ArgoCD Deployment](./assets/argocd.png.png)
+![ArgoCD Deployment](./assets/argocd.png)
 
 ---
 
@@ -165,15 +148,15 @@ ArgoCD detects manifest change → Auto-Syncs → Deploys to Kubernetes ✅
 
 > SonarQube notifies Jenkins via webhook after every analysis — enabling the Quality Gate stage to pass or fail the pipeline in real-time
 
-![SonarQube Webhook](./assets/sonarqube-webhook.png.png)
+![SonarQube Webhook](./assets/sonarqube-webhook.png)
 
 ---
 
 ### 📦 OWASP — Dependency-Check Trend
 
-> Tracks vulnerability trends across builds. The graph shows **Medium** severity dependency findings detected from build #15 onwards — with zero Critical vulnerabilities across all runs ✅
+> Vulnerability trend tracked across all builds. **Medium** severity findings detected from build #15 onwards — zero **Critical** vulnerabilities across the entire build history ✅
 
-![OWASP Dependency-Check Trend](./assets/dependency-check.png.png)
+![OWASP Dependency-Check Trend](./assets/dependency-check.png)
 
 ---
 
@@ -183,16 +166,16 @@ ArgoCD detects manifest change → Auto-Syncs → Deploys to Kubernetes ✅
 Trivy scans the entire source code filesystem **before** any Docker build happens. Critical vulnerabilities surface in pipeline logs, stopping insecure images from being built or pushed.
 
 ### 🔎 OWASP Dependency-Check
-Audits all project dependencies against the National Vulnerability Database (NVD). The full report is published as a Jenkins artifact (`dependency-check-report.xml`) with a trend chart visible directly on the pipeline dashboard.
+Audits all project dependencies against the National Vulnerability Database (NVD). The full report is published as a Jenkins artifact (`dependency-check-report.xml`) with a live trend chart visible on the pipeline dashboard.
 
 ### ✅ SonarQube Quality Gate
-Static code analysis with enforced quality gates. The pipeline **will not proceed** to Docker builds if the gate fails. A SonarQube webhook notifies Jenkins in real-time to trigger the gate evaluation — no polling, instant feedback.
+Static code analysis with enforced quality gates. The pipeline **will not proceed** to Docker builds if the gate fails. A SonarQube webhook notifies Jenkins instantly after analysis — no polling, real-time gate evaluation.
 
 ---
 
 ## ⚙️ Jenkins Shared Library
 
-All reusable pipeline logic is abstracted into a **Jenkins Shared Library** (`@Library('shared') _`), keeping both Jenkinsfiles clean, readable, and DRY.
+All reusable pipeline logic is abstracted into a **Jenkins Shared Library** (`@Library('shared') _`), keeping both Jenkinsfiles clean and DRY.
 
 | Function | Purpose |
 |:---|:---|
@@ -211,7 +194,7 @@ All reusable pipeline logic is abstracted into a **Jenkins Shared Library** (`@L
 ArgoCD watches the `kubernetes/` directory in GitHub. When the CD pipeline commits updated image tags, ArgoCD takes over completely:
 
 1. Detects the manifest change automatically (Auto-Sync enabled)
-2. Applies the updated `backend.yml` and `frontend.yml` to the Kubernetes cluster
+2. Applies updated `backend.yml` and `frontend.yml` to the Kubernetes cluster
 3. Rolls out new pods with zero-downtime deployment
 4. All resources show **Healthy** ✅ on the ArgoCD dashboard
 
@@ -233,8 +216,10 @@ ArgoCD watches the `kubernetes/` directory in GitHub. When the CD pipeline commi
 Deployed via **Helm** (`kube-prometheus-stack`) in a dedicated `prometheus` namespace.
 
 ```bash
-# Add Helm repo and install
+# Add Helm repo
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+# Create namespace and install
 kubectl create namespace prometheus
 helm install stable prometheus-community/kube-prometheus-stack -n prometheus
 
@@ -249,13 +234,13 @@ kubectl get secret --namespace prometheus stable-grafana \
   -o jsonpath="{.data.admin-password}" | base64 --decode; echo
 ```
 
-Grafana dashboards provide real-time visibility into CPU Usage, CPU Quota, Memory Usage, and workload-level drill-down across all namespaces.
+Grafana dashboards provide real-time visibility into CPU usage, CPU quota, memory usage, and workload-level drill-down across all namespaces.
 
 ---
 
 ## 📧 Email Notification
 
-On every successful CI/CD run, Jenkins sends an **HTML email** containing the job name, build number, and a direct build URL — with the full build log attached. Configured via the Jenkins Extended Email Notification plugin using Gmail App Password SMTP authentication on port 465.
+On every successful CI/CD run, Jenkins sends an **HTML email** containing the job name, build number, and a direct build URL — with the full build log attached. Configured via the Jenkins Extended Email Notification plugin using Gmail App Password SMTP on port 465.
 
 ---
 
@@ -263,15 +248,16 @@ On every successful CI/CD run, Jenkins sends an **HTML email** containing the jo
 
 ```
 Luminary/
-├── assets/                        # All screenshots & GIF for README
+├── assets/                        # Screenshots & GIF for README
 │   ├── DevSecOps+GitOps.gif
 │   ├── luminary-login.png.png
-│   ├── luminary-dashboard.png.png
-│   ├── luminary-ci.png.png
-│   ├── luminary-cd.png.png
-│   ├── argocd.png.png
+│   ├── luminary-dashboard.png
+│   ├── luminary-ci.png
+│   ├── luminary-cd.png
+│   ├── argocd.png
 │   ├── grafana.png.png
-│   └── sonarqube-webhook.png.png
+│   ├── sonarqube-webhook.png
+│   └── dependency-check.png
 ├── backend/                       # Node.js/Express backend
 │   └── Dockerfile
 ├── frontend/                      # React frontend
@@ -315,8 +301,8 @@ Luminary/
 
 **Author:** Shubham Mali
 
-[![GitHub](https://img.shields.io/badge/GitHub-Shubhamx18-181717?logo=github)](https://github.com/Shubhamx18)
-[![DockerHub](https://img.shields.io/badge/DockerHub-shubhamm18-2496ED?logo=docker)](https://hub.docker.com/u/shubhamm18)
+[![GitHub](https://img.shields.io/badge/GitHub-Shubhamx18-181717?logo=github&logoColor=white)](https://github.com/Shubhamx18)
+[![DockerHub](https://img.shields.io/badge/DockerHub-shubhamm18-2496ED?logo=docker&logoColor=white)](https://hub.docker.com/u/shubhamm18)
 
 ---
 

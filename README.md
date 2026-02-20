@@ -25,7 +25,7 @@
 
 | 🔐 Login Page | 📊 Dashboard |
 |:---:|:---:|
-| ![Login](./assets/luminary-login.png.png) | ![Dashboard](./assets/luminary-dashboard.png) |
+| ![Login](./assets/luminary-login.png) | ![Dashboard](./assets/luminary-dashboard.png) |
 
 > Luminary is a **next-gen project management platform** built for teams who ship fast.
 > Track projects, manage tasks, monitor completion rates, and catch overdue items — all in a sleek dark UI.

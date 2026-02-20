@@ -4,11 +4,10 @@ metadata:
   name: luminary-config
   namespace: luminary
 data:
-  DB_HOST: mysql-service
-  DB_USER: root
   DB_NAME: project_management_db
-  DB_PORT: "3306"
+  DB_USER: root
+  MYSQL_PORT: "3306"
 
-  CORS_ORIGIN: http://REPLACE_IP
-  BACKEND_PUBLIC_URL: http://REPLACE_IP:5000
-  SOCKET_PUBLIC_URL: http://REPLACE_IP:5000
+  CORS_ORIGIN: http://<YOUR_NODE_IP>:30080
+  BACKEND_PUBLIC_URL: http://<YOUR_NODE_IP>:30500
+  SOCKET_PUBLIC_URL: http://<YOUR_NODE_IP>:30500

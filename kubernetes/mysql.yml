@@ -6,6 +6,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: gp2   # change to gp3 if your cluster uses gp3
   resources:
     requests:
       storage: 5Gi
@@ -67,4 +68,3 @@ spec:
   ports:
     - port: 3306
       targetPort: 3306
-      protocol: TCP

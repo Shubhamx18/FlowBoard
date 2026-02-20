@@ -1,0 +1,108 @@
+@Library('shared') _
+pipeline {
+    agent any
+    
+    parameters {
+        string(name: 'FRONTEND_DOCKER_TAG', defaultValue: '', description: 'Frontend Docker tag from CI job')
+        string(name: 'BACKEND_DOCKER_TAG', defaultValue: '', description: 'Backend Docker tag from CI job')
+    }
+
+    stages {
+
+        stage("Workspace cleanup") {
+            steps {
+                cleanWs()
+            }
+        }
+        
+        stage('Git: Code Checkout') {
+            steps {
+                script {
+                    code_checkout("https://github.com/Shubhamx18/Luminary.git","main")
+                }
+            }
+        }
+        
+        stage('Verify: Docker Image Tags') {
+            steps {
+                script {
+                    echo "FRONTEND_DOCKER_TAG: ${params.FRONTEND_DOCKER_TAG}"
+                    echo "BACKEND_DOCKER_TAG: ${params.BACKEND_DOCKER_TAG}"
+
+                    if (!params.FRONTEND_DOCKER_TAG?.trim() || !params.BACKEND_DOCKER_TAG?.trim()) {
+                        error("FRONTEND_DOCKER_TAG and BACKEND_DOCKER_TAG must not be empty")
+                    }
+                }
+            }
+        }
+        
+        stage("Update: Kubernetes manifests") {
+            steps {
+                dir('kubernetes') {
+                    sh """
+                        set -e
+                        sed -i 's|image: shubhamm18/luminary-backend:.*|image: shubhamm18/luminary-backend:${params.BACKEND_DOCKER_TAG}|g' backend.yml
+                        sed -i 's|image: shubhamm18/luminary-frontend:.*|image: shubhamm18/luminary-frontend:${params.FRONTEND_DOCKER_TAG}|g' frontend.yml
+                    """
+                }
+            }
+        }
+        
+        stage("Git: Code update and push to GitHub") {
+            steps {
+                withCredentials([gitUsernamePassword(credentialsId: 'github-token', gitToolName: 'Default')]) {
+                    sh """
+                        set -e
+                        git config user.name "jenkins"
+                        git config user.email "jenkins@local"
+
+                        git checkout main
+                        git pull origin main
+
+                        git add kubernetes/backend.yml kubernetes/frontend.yml
+
+                        if ! git diff --cached --quiet; then
+                            git commit -m "Updated Luminary image tags"
+                            git push origin main
+                        else
+                            echo "No changes to commit."
+                        fi
+                    """
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            script {
+                try {
+                    emailext(
+                        attachLog: true,
+                        subject: "Luminary Application updated and deployed - ${currentBuild.result}",
+                        body: """
+                        <html>
+                        <body>
+                            <h2 style="color:green;">Deployment Successful 🚀</h2>
+                            <p><b>Project:</b> ${env.JOB_NAME}</p>
+                            <p><b>Build Number:</b> ${env.BUILD_NUMBER}</p>
+                            <p><b>URL:</b> ${env.BUILD_URL}</p>
+                        </body>
+                        </html>
+                        """,
+                        to: 'shubhammali26012004@gmail.com',
+                        mimeType: 'text/html'
+                    )
+                } catch (err) {
+                    echo "Email failed but deployment completed successfully."
+                }
+            }
+        }
+
+        failure {
+            script {
+                echo "Pipeline failed."
+            }
+        }
+    }
+}

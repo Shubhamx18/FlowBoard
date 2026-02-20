@@ -141,7 +141,7 @@ ArgoCD detects manifest change → Auto-Syncs → Deploys to Kubernetes ✅
 
 > Real-time CPU usage, CPU quota, and Memory usage per pod — full workload visibility across all namespaces
 
-![Grafana Dashboard](./assets/grafana.png.png)
+![Grafana Dashboard](./assets/grafana.png)
 
 ---
 

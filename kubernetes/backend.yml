@@ -3,9 +3,6 @@ kind: Deployment
 metadata:
   name: backend
   namespace: luminary
-  labels:
-    app: luminary
-    component: backend
 spec:
   replicas: 1
   selector:
@@ -24,31 +21,14 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
-
-          # 🔥 Force DB host to correct service name
           env:
             - name: DB_HOST
               value: mysql-service
-
           envFrom:
             - configMapRef:
                 name: luminary-config
             - secretRef:
                 name: luminary-secrets
-
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 5000
-            initialDelaySeconds: 20
-            periodSeconds: 10
-
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 5000
-            initialDelaySeconds: 10
-            periodSeconds: 5
 
 ---
 apiVersion: v1
